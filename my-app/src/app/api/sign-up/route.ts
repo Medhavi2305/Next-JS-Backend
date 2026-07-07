@@ -5,6 +5,12 @@ import bcrypt from "bcryptjs";
 import { success } from "zod";
 
 export async function POST(request: Request){
+    if(request.method !== 'POST'){
+        return Response.json({
+            success: false,
+            message: 'Method not allowed'
+        }, {status: 405})
+    }
     await dbConnect()
     try {
     const {username, email, password} = await request.json()
