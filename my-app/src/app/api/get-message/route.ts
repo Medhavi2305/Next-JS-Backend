@@ -45,6 +45,10 @@ export async function GET(request: Request){
                 message: user[0].messages,
             },{status: 200})
     } catch (error) {
-        
+        console.log('An unexpected error occur: ', error)
+        return Response.json({
+                success: false,
+                message: 'Unable to sent message',
+            },{status: 500})
     }
 }
