@@ -16,9 +16,9 @@ export const{handlers, signIn, signOut, auth} = NextAuth({
                     placeholder: 'Enter your email or username'
                 },
                 password: {
-                    label: 'Email or Username',
-                    type: 'text',
-                    placeholder: 'Enter your email or username'
+                    label: 'Password',
+                    type: 'password',
+                    placeholder: 'Enter your password'
                 }
             },
             authorize: async(credentials) => {
@@ -26,7 +26,7 @@ export const{handlers, signIn, signOut, auth} = NextAuth({
                 return null;
             }
             const identifier = credentials.identifier as string
-            const password = credentials.identifier as string
+            const password = credentials.password as string
 
                 await dbConnect()
                 try {
@@ -54,7 +54,7 @@ export const{handlers, signIn, signOut, auth} = NextAuth({
                         throw new Error('Incorrect password')
                     }
                 } catch (error: any) {
-                    throw new Error(error)
+                    throw new Error(error.message)
                 }
                 return null
             }
