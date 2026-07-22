@@ -32,8 +32,8 @@ function page() {
   const fetchAcceptMessage = useCallback(async () => {
     setIsSwitchLoading(true)
     try {
-      const response = await axios.get('/api/accept-messages')
-      setValue('acceptMessage', response.data.isAcceptingMessage)
+      const response = await axios.get<ApiResponce>('/api/accept-messages')
+      setValue('acceptMessage', response.data.isAcceptingMessage ?? false)
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponce>
       toast(axiosError.response?.data.message || 'Failed to fetch message data', {position: 'top-center'})
@@ -46,6 +46,12 @@ function page() {
   const fetchMessages = useCallback(async (refresh: boolean = false) => {
     setIsSwitchLoading(false)
     setLoading(true)
+    try {
+      const response = await axios.get<ApiResponce>('/api/accept-messages')
+      setMessages(response.data.messages || [])
+    } catch (error) {
+      
+    }
   }, [])
   return (
     <div>page</div>
